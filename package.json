@@ -12,8 +12,13 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "check-password-strength": "^2.0.3",
+    "config": "^3.3.6",
     "express": "^4.17.1",
     "joi": "^17.4.2",
+    "joi-objectid": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.6",
+    "nodemailer": "^6.6.3",
     "nodemon": "^2.0.12"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "jwtPrivateKey": "matrimonial_jwtPrivateKey",
+  "jwtPrivateKeyForEmail": "matrimonial_jwtPrivateKeyForEmail",
+  "email": "matrimonial_email",
+  "password": "matrimonial_password"
+}
