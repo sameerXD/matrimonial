@@ -7,7 +7,12 @@ const authenticate = require("./routes/authenticate");
 const request = require("./routes/request");
 const search = require("./routes/search");
 
-if (!config.get("jwtPrivateKey")) {
+if (
+  !config.get("jwtPrivateKey") ||
+  !config.get("jwtPrivateKeyForEmail") ||
+  !config.get("email") ||
+  !config.get("password")
+) {
   console.error("Fetal ERROR: jwtPrivateKey Is Not Defined");
   process.exit(1);
 }
