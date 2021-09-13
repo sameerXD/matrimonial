@@ -6,6 +6,7 @@ const config = require("config");
 const authenticate = require("./routes/authenticate");
 const request = require("./routes/request");
 const search = require("./routes/search");
+const recommend = require("./routes/recommend");
 
 if (
   !config.get("jwtPrivateKey") ||
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", authenticate);
 app.use("/request", request);
 app.use("/search", search);
+app.use("/recommend", recommend);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

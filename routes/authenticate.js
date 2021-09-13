@@ -116,9 +116,14 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.get("/", auth, async (req, res) => {
-  const user = User.findById(req.user._id).select("-hashed");
-  res.send(user);
+router.get("/me", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-hashed");
+    res.status(200).send(user);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send("oops something went wrong");
+  }
 });
 
 router.get("/login", async (req, res) => {
@@ -137,10 +142,11 @@ router.get("/login", async (req, res) => {
 
     if (user.profilePicture && user.profilePicture.length > 1)
       hasProfilePicture = true;
-    res
-      .header("x-auth-token", token)
-      .status(200)
-      .send({ token: token, hasProfilePicture: hasProfilePicture });
+    res.header("x-auth-token", token).status(200).send({
+      token: token,
+      hasProfilePicture: hasProfilePicture,
+      profilePicture: user.profilePicture,
+    });
   } else {
     res.status(400).send("password cant be empty");
   }
