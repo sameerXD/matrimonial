@@ -9,7 +9,7 @@ const { Request } = require("../models/requestModel");
 const auth = require("../middleware/auth");
 
 router.get("/", auth, async (req, res) => {
-  const twenty_users = await User.find();
+  const twenty_users = await User.find().select({ profilePicture: 1 });
 
   const requests = await Request.find({
     $and: [
@@ -20,6 +20,7 @@ router.get("/", auth, async (req, res) => {
     ],
   });
 
+  if (requests.length < 1) return res.status(200).send(twenty_users);
   const canBeSent = [];
   for (let us of twenty_users) {
     for (let re of requests) {
