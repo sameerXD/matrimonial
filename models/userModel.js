@@ -257,14 +257,14 @@ function validateUser(data) {
 function validateUpdateUser(data) {
   const schema = Joi.object({
     firstName: Joi.string().min(5).max(60).required(),
-    email: Joi.string()
-      .email()
-      .pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-      .required()
-      .min(5)
-      .max(60),
+    // email: Joi.string()
+    //   .email()
+    //   .pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+    //   .required()
+    //   .min(5)
+    //   .max(60),
     lastName: Joi.string().min(5).max(60).required(),
-    profilePicture: Joi.string().min(0).max(230),
+    // profilePicture: Joi.string().min(0).max(230),
 
     // password: Joi.string().min(5).max(60).required(),
     // confirmPassword: Joi.string()
@@ -272,7 +272,7 @@ function validateUpdateUser(data) {
     //   .max(60)
     //   .valid(Joi.ref("password"))
     //   .required(),
-    profileFor: Joi.string().min(5).max(60).required(),
+    // profileFor: Joi.string().min(5).max(60).required(),
     dateOfBirth: Joi.date().required(),
     ft: Joi.number().min(0).max(10).required(),
     inch: Joi.number().min(0).max(100).required(),
@@ -282,11 +282,11 @@ function validateUpdateUser(data) {
     caste: Joi.string().min(5).max(60).required(),
     gotra: Joi.string().min(5).max(60).required(),
     city: Joi.string().min(5).max(60).required(),
-    plan: Joi.string().min(1).max(60).required(),
-    mobile: Joi.string()
-      .length(10)
-      .pattern(/^[0-9]+$/)
-      .required(),
+    // plan: Joi.string().min(1).max(60).required(),
+    // mobile: Joi.string()
+    //   .length(10)
+    //   .pattern(/^[0-9]+$/)
+    //   .required(),
     jobSector: Joi.string().min(5).max(60).required(),
     salary: Joi.number().min(0).required(),
   });
