@@ -62,7 +62,7 @@ const Request = mongoose.model("Request", requestSchema);
 
 function validateRequest(data) {
   const schema = Joi.object({
-    sentToId: Joi.objectId().required(),
+    requestId: Joi.objectId().required(),
   });
   const { error } = schema.validate(data);
   return error;

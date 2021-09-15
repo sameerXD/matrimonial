@@ -9,7 +9,10 @@ const { Request } = require("../models/requestModel");
 const auth = require("../middleware/auth");
 
 router.get("/", auth, async (req, res) => {
-  const twenty_users = await User.find().select({ profilePicture: 1 });
+  const twenty_users = await User.find().select({
+    profilePicture: 1,
+    firstName: 1,
+  });
 
   const requests = await Request.find({
     $and: [
@@ -20,14 +23,19 @@ router.get("/", auth, async (req, res) => {
     ],
   });
 
+  console.log(requests);
   if (requests.length < 1) return res.status(200).send(twenty_users);
   const canBeSent = [];
   for (let us of twenty_users) {
     for (let re of requests) {
       if (re.sentBy.user.equals(us._id) || re.sentTo.user.equals(us._id)) {
+        console.log("here");
       } else {
+        console.log("pushing", us);
+
         canBeSent.push({
           _id: us._id,
+          firstName: us.firstName,
           profilePicture: us.profilePicture,
         });
       }

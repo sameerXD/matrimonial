@@ -78,23 +78,24 @@ router.delete("/", auth, async (req, res) => {
 });
 
 router.put("/", auth, async (req, res) => {
-  const { sentToId } = req.body;
+  const { requestId } = req.body;
 
   const error = validateRequest(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  if (req.user._id === sentToId)
-    return res.status(400).send("cannot send a request to yourself");
+  // if (req.user._id === sentToId)
+  //   return res.status(400).send("cannot send a request to yourself");
 
-  const sentTo = await User.findById(sentToId);
-  if (!sentTo) return res.status(400).send("invalid reciever Id");
+  // const sentTo = await User.findById(sentToId);
+  // if (!sentTo) return res.status(400).send("invalid reciever Id");
 
   const sentOrNot = await Request.find({
-    "sentBy.user": req.user._id,
-    "sentTo.user": sentToId,
+    _id: requestId,
+    "sentTo.user": req.user._id,
+    // "sentTo.user": sentToId,
   });
 
-  // console.log(sentOrNot);
+  console.log(sentOrNot);
   if (sentOrNot.length < 1)
     return res.status(400).send("there is no such request");
 
@@ -144,11 +145,12 @@ router.get("/accepted", auth, async (req, res) => {
     const requests = await Request.find({
       "sentTo.user": req.user._id,
       accepted: true,
-    });
+    }).select({ " sentBy": 1 });
+
     const requests1 = await Request.find({
       "sentBy.user": req.user._id,
       accepted: true,
-    });
+    }).select({ sentTo: 1 });
 
     res.status(200).send(requests.concat(requests1));
   } catch (err) {
@@ -157,7 +159,7 @@ router.get("/accepted", auth, async (req, res) => {
   }
 });
 
-router.get("/info", auth, async (req, res) => {
+router.post("/info", auth, async (req, res) => {
   const error = validateRequest(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 

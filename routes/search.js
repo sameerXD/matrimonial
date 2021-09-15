@@ -26,6 +26,9 @@ router.get("/", async (req, res) => {
     ],
   });
   console.log(result);
+  if (!result || result.length < 1)
+    return res.status(200).send("there are no results");
+  res.status(200).send(result);
 });
 
 module.exports = router;
