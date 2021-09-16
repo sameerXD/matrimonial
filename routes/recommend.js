@@ -19,17 +19,23 @@ router.get("/", auth, async (req, res) => {
       {
         $or: [{ "sentTo.user": req.user._id }, { "sentBy.user": req.user._id }],
       },
-      { accepted: true },
     ],
   });
 
-  console.log(requests);
+  // console.log(requests);
   if (requests.length < 1) return res.status(200).send(twenty_users);
   const canBeSent = [];
+  const alreadySent = [];
   for (let us of twenty_users) {
     for (let re of requests) {
-      if (re.sentBy.user.equals(us._id) || re.sentTo.user.equals(us._id)) {
-        console.log("here");
+      console.log(us, " matching ", re);
+      if (
+        re.sentBy.user.equals(us._id) ||
+        re.sentTo.user.equals(us._id) ||
+        req.user._id === us._id ||
+        alreadySent.includes(us._id)
+      ) {
+        console.log("do not send", us._id);
       } else {
         console.log("pushing", us);
 
@@ -38,6 +44,7 @@ router.get("/", auth, async (req, res) => {
           firstName: us.firstName,
           profilePicture: us.profilePicture,
         });
+        alreadySent.push(us._id);
       }
     }
   }
