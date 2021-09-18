@@ -177,7 +177,7 @@ const userSchema = new mongoose.Schema({
   profilePicture: {
     type: String,
     minlength: 0,
-    maxlength: 230,
+    // maxlength: 230,
   },
   jobSector: {
     type: String,
@@ -246,7 +246,7 @@ function validateUser(data) {
       .length(10)
       .pattern(/^[0-9]+$/)
       .required(),
-    profilePicture: Joi.string().min(0).max(230),
+    profilePicture: Joi.string().min(0), //max length should be there removed for testing purpose
     jobSector: Joi.string().min(5).max(60).required(),
     salary: Joi.number().min(0).required(),
   });

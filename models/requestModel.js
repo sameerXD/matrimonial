@@ -16,7 +16,7 @@ const requestSchema = new mongoose.Schema({
     profilePicture: {
       type: String,
       minlength: 0,
-      maxlength: 230,
+      // maxlength: 230,
       default: "",
     },
 
@@ -36,7 +36,7 @@ const requestSchema = new mongoose.Schema({
     profilePicture: {
       type: String,
       minlength: 0,
-      maxlength: 230,
+      // maxlength: 230,
       default: "",
     },
 

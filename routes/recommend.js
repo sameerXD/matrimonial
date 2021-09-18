@@ -9,7 +9,7 @@ const { Request } = require("../models/requestModel");
 const auth = require("../middleware/auth");
 
 router.get("/", auth, async (req, res) => {
-  const twenty_users = await User.find().select({
+  const twenty_users = await User.find({ _id: { $ne: req.user._id } }).select({
     profilePicture: 1,
     firstName: 1,
   });

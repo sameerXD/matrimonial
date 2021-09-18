@@ -39,10 +39,10 @@ router.post("/", auth, async (req, res) => {
   });
   try {
     const result = await request.save();
-    console.log(result);
+    // console.log(result);
     res.status(200).send("ok");
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 });
 
@@ -145,13 +145,11 @@ router.get("/accepted", auth, async (req, res) => {
     const requests = await Request.find({
       "sentTo.user": req.user._id,
       accepted: true,
-    }).select({ " sentBy": 1 });
-
+    }).select({ sentBy: 1 });
     const requests1 = await Request.find({
       "sentBy.user": req.user._id,
       accepted: true,
     }).select({ sentTo: 1 });
-
     res.status(200).send(requests.concat(requests1));
   } catch (err) {
     console.log(err);
