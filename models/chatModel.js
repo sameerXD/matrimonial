@@ -15,6 +15,10 @@ const Chat = mongoose.model(
   "Chat",
   new mongoose.Schema({
     chatId: { type: String, required: true, unique: true },
+    wasPresent: {
+      type: Boolean,
+      default: false,
+    },
   })
 );
 
