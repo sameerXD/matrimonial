@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Joi = require("Joi");
+const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 mongoose
@@ -14,11 +14,38 @@ mongoose
 const Chat = mongoose.model(
   "Chat",
   new mongoose.Schema({
-    chatId: { type: String, required: true, unique: true },
-    wasPresent: {
-      type: Boolean,
-      default: false,
+    user1:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+      required: true,
     },
+    user2:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+      required: true,
+    },
+    messages:[
+      {
+        sent_by:{
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Users",
+          required: true,
+        },
+        sent_to:{
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Users",
+          required: true,
+        },
+        message: {
+          type: String,
+          required: true,
+          minlength: 5,
+          maxlength: 60,
+        },
+      }
+    ]
+  },{
+    timestamps:true
   })
 );
 

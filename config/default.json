@@ -1,6 +1,6 @@
 {
-  "jwtPrivateKey": "",
-  "jwtPrivateKeyForEmail": "",
-  "email": "",
-  "password": ""
+  "jwtPrivateKey": "sameer",
+  "jwtPrivateKeyForEmail": "sameer",
+  "email": "sameer@gmail.com",
+  "password": "lol"
 }

@@ -8,7 +8,7 @@ const request = require("./routes/request");
 const search = require("./routes/search");
 const recommend = require("./routes/recommend");
 const chat = require("./routes/chat");
-
+const chats = require("./routes/chats")
 if (
   !config.get("jwtPrivateKey") ||
   !config.get("jwtPrivateKeyForEmail") ||
@@ -19,6 +19,7 @@ if (
   process.exit(1);
 }
 
+
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,6 +28,8 @@ app.use("/request", request);
 app.use("/search", search);
 app.use("/recommend", recommend);
 app.use("/chat", chat);
+app.use("/chats", chats);
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
